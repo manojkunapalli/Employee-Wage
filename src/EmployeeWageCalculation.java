@@ -13,9 +13,8 @@ public class EmployeeWageCalculation {
     public static void calculate_Wage() {
         int wage;
         int wage_per_hour = 20;
-        Scanner input = new Scanner(System.in);
-        System.out.print("number of days Employee worked = ");
-        int num_days = input.nextInt();
+        System.out.println("Calculating Wages for a month ...");
+        int num_days = 20;
         int hours_per_day = 0;
         String str = "";
         int TotalSalary=0;
@@ -44,7 +43,7 @@ public class EmployeeWageCalculation {
 
         Random rand = new Random();
         //Employee Attendance
-        int present_absent = rand.nextInt(1);
+        int present_absent = 1 + rand.nextInt(2);
         check_Attendance(present_absent);
 
         //Employee wage calculation
