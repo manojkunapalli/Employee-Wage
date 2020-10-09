@@ -34,7 +34,7 @@ public class EmployeeWageCalculation {
             }
             wage = ( hours_per_day ) * wage_per_hour;
             TotalSalary+=wage;
-            System.out.println("Salary of "+str+" on the day = "+i+" = "+wage);
+            System.out.println("Salary of "+str+" on the day "+i+" = "+wage);
         }
         System.out.println("Total Salary = "+TotalSalary);
     }
