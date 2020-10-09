@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class EmployeeWageCalculation {
     public static void check_Attendance(int present_absent) {
-
         if(present_absent == 1){
             System.out.println("Employee is Present");
         } else {
@@ -11,25 +10,33 @@ public class EmployeeWageCalculation {
         }
     }
 
-    public static void calculate_Wage(int employeeType) {
+    public static void calculate_Wage() {
         int wage;
         int wage_per_hour = 20;
         Scanner input = new Scanner(System.in);
-        if(employeeType == 0){
-            int hours_per_day = 8;
-            System.out.println("FullTime Employee");
-            System.out.print("number of days Employee worked = ");
-            int num_days = input.nextInt();
+        System.out.print("number of days Employee worked = ");
+        int num_days = input.nextInt();
+        int hours_per_day = 0;
+        String str = "";
+        int TotalSalary=0;
+        Random rand = new Random();
+        int employeeType;
+        for(int i=1;i<=num_days;i++){
+             employeeType = 1 + rand.nextInt( 2 );
+            switch (employeeType) {
+                case 1:
+                    str="Full Time Employee";
+                    hours_per_day=8;
+                    break;
+                case 2:
+                    str="Part Time Employee";
+                    hours_per_day=4;
+            }
             wage = ( num_days * hours_per_day ) * wage_per_hour;
-            System.out.println("Employee wage for working hours = "+wage);
-        } else {
-            System.out.println("PartTime Employee");
-            int hours_per_day = 8;
-            System.out.print("number of days Employee worked = ");
-            int num_days = input.nextInt();
-            wage = ( num_days * hours_per_day ) * wage_per_hour;
-            System.out.println("Employee wage for working hours = "+wage);
+            TotalSalary+=wage;
+            System.out.println("Salary of "+str+" on the day = "+i+" = "+wage);
         }
+        System.out.println("Total Salary = "+TotalSalary);
     }
 
     public static void main(String[] args){
@@ -41,7 +48,6 @@ public class EmployeeWageCalculation {
         check_Attendance(present_absent);
 
         //Employee wage calculation
-        int empType = rand.nextInt(1);
-        calculate_Wage(empType);
+        calculate_Wage();
     }
 }
