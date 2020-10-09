@@ -32,7 +32,7 @@ public class EmployeeWageCalculation {
                     str="Part Time Employee";
                     hours_per_day=4;
             }
-            wage = ( num_days * hours_per_day ) * wage_per_hour;
+            wage = ( hours_per_day ) * wage_per_hour;
             TotalSalary+=wage;
             System.out.println("Salary of "+str+" on the day = "+i+" = "+wage);
         }
