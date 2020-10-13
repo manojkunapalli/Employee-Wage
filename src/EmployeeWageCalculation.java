@@ -1,33 +1,43 @@
 import java.util.*;
 
 public class EmployeeWageCalculation {
-    public static final int numOfWorkingDays = 20;
-    private static final int wagePerHour = 20;
-    public int presentOrAbsent = 0;
+    public String companyName;
+    public int numOfWorkingDays;
+    public double wagePerHour;
+    public int workingHoursPerMonth;
 
-    public void checkAttendance() {
-        if(this.presentOrAbsent == 1){
+    EmployeeWageCalculation(String companyName,int numOfWorkingDays,double wagePerHour,int workingHoursPerMonth) {
+        this.companyName = companyName;
+        this.numOfWorkingDays = numOfWorkingDays;
+        this.wagePerHour = wagePerHour;
+        this.workingHoursPerMonth = workingHoursPerMonth;
+    }
+
+    public static void checkAttendance() {
+        System.out.println("*****Attendance Check*****");
+        Random rand = new Random();
+        int presentOrAbsent = 1 + rand.nextInt(2);
+        if(presentOrAbsent == 1) {
             System.out.println("Employee is Present");
         } else {
             System.out.println("Employee is Absent");
         }
     }
 
-    public static int calculateWage() {
-        int wage;
+    public double calculateWage(String companyName,int numOfWorkingDays,double wagePerHour,int workingHoursPerMonth) {
+        double wage;
         int hoursPerDay = 0;
         String str = "";
-        int TotalSalary=0;
+        double TotalSalary=0;
         int TotalHours=0;
         int fullTimeWorkingHours=0;
         int partTimeWorkingHours=0;
         Random rand = new Random();
         int employeeType;
         Map<String,Integer> map = new HashMap<>();
-
-        System.out.println("Calculating Wages for a month ...");
-        for(int i=1;i<=numOfWorkingDays;i++){
-            if(TotalHours <= 100) {
+        System.out.println("Calculating Wages for a month of "+this.companyName+"............");
+        for(int i=1;i<=numOfWorkingDays;i++) {
+            if(TotalHours <= workingHoursPerMonth) {
                 employeeType = 1 + rand.nextInt(2);
                 switch (employeeType) {
                     case 1:
@@ -47,37 +57,51 @@ public class EmployeeWageCalculation {
                 }
                 wage = (hoursPerDay) * wagePerHour;
                 TotalSalary += wage;
-                System.out.println("Salary of " + str + " on the day " + i + " = " + wage);
             } else {
-                System.out.println();
-                System.out.println("Total working hours reached 100 and above..................");
                 break;
             }
         }
-
-        System.out.println();
         System.out.println("EmployeeType                 WorkingHours");
-
         for ( Map.Entry<String, Integer>  t  :  map.entrySet() )  {
             System.out.println(t.getKey() +"     ----->      "+t.getValue());
         }
 
         System.out.println();
-        System.out.println("Total Working hours = "+TotalHours);
+        System.out.println(companyName+" Total Working hours = "+TotalHours);
         return TotalSalary;
     }
 
-    public static void main(String[] args){
-        System.out.println("Welcome to Employee Computation program");
+    @Override
+    public String toString() {
+        return "Company name => "+companyName+"\nnumber of working days => "+numOfWorkingDays+"\nWage per Hour => "+wagePerHour+"\nWorking Hours Per Month => "+workingHoursPerMonth;
+    }
 
-        Random rand = new Random();
-        EmployeeWageCalculation obj = new EmployeeWageCalculation();
+    public static void main(String[] args){
+        System.out.println("**********************************Welcome to Employee Computation program**********************************\n");
+        List<EmployeeWageCalculation> list = new ArrayList<>();
+
+        EmployeeWageCalculation philips = new EmployeeWageCalculation("Philips",22,247.43,176);
+        EmployeeWageCalculation jio = new EmployeeWageCalculation("Jio",20,198.54,165);
+        EmployeeWageCalculation cognizant = new EmployeeWageCalculation("Cognizant",15,160.78,160);
+
+        list.add(philips);
+        list.add(jio);
+        list.add(cognizant);
 
         //Employee Attendance
-        obj.presentOrAbsent = 1 + rand.nextInt(2);
-        obj.checkAttendance();
+        checkAttendance();
+
+        //Given Details
+        System.out.println("Given details of Companies...................");
+        for(EmployeeWageCalculation details:list){
+            System.out.println("***************************************************************");
+            System.out.println(details);
+        }
+        System.out.println("***************************************************************");
 
         //Employee wage calculation
-        System.out.println("Total Salary = "+calculateWage());
+        System.out.println("Total Salary = "+philips.calculateWage(philips.companyName,philips.numOfWorkingDays,philips.wagePerHour,philips.workingHoursPerMonth)+"\n");
+        System.out.println("Total Salary = "+jio.calculateWage(jio.companyName,jio.numOfWorkingDays,jio.wagePerHour,jio.workingHoursPerMonth)+"\n");
+        System.out.println("Total salary = "+cognizant.calculateWage(cognizant.companyName,cognizant.numOfWorkingDays,cognizant.wagePerHour,cognizant.workingHoursPerMonth)+"\n");
     }
 }
