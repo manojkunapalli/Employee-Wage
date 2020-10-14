@@ -60,9 +60,17 @@ class EmpWageBuilder implements EmployeeWageInterface {
         System.out.println(arraylist.get(index).companyName+" Total Working hours = "+TotalHours);
         salaryMap.put(arraylist.get(index).companyName,TotalSalary);
     }
+
+    public void display(String companyName){
+        System.out.println(companyName+" : "+salaryMap.get(companyName));
+    }
 }
 
-public class EmployeeWageCalculation {
+public class EmployeeWageCalculation extends EmpWageBuilder{
+    EmployeeWageCalculation(String companyName, int numOfWorkingDays, double wagePerHour, int workingHoursPerMonth) {
+        super(companyName, numOfWorkingDays, wagePerHour, workingHoursPerMonth);
+    }
+
     public static void checkAttendance() {
         System.out.println("*****Attendance Check*****");
         Random rand = new Random();
@@ -79,9 +87,9 @@ public class EmployeeWageCalculation {
 
         List<EmpWageBuilder> arraylist = new ArrayList<>();
 
-        EmpWageBuilder philips = new EmpWageBuilder("Philips",22,247.43,176);
-        EmpWageBuilder jio = new EmpWageBuilder("Jio",20,198.54,165);
-        EmpWageBuilder cognizant = new EmpWageBuilder("Cognizant",15,160.78,160);
+        EmployeeWageCalculation philips = new EmployeeWageCalculation("Philips",22,247.43,176);
+        EmployeeWageCalculation jio = new EmployeeWageCalculation("Jio",20,198.54,165);
+        EmployeeWageCalculation cognizant = new EmployeeWageCalculation("Cognizant",15,160.78,160);
 
         arraylist.add(philips);
         arraylist.add(jio);
@@ -94,5 +102,11 @@ public class EmployeeWageCalculation {
         philips.calculateWage(arraylist,0);
         jio.calculateWage(arraylist,1);
         cognizant.calculateWage(arraylist,2);
+
+        System.out.println("\nTotal Salary of company's....................");
+        philips.display("Philips");
+        jio.display("Jio");
+        cognizant.display("Cognizant");
+
     }
 }
