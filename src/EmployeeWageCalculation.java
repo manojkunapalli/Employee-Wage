@@ -24,7 +24,7 @@ public class EmployeeWageCalculation {
         }
     }
 
-    public double calculateWage(String companyName,int numOfWorkingDays,double wagePerHour,int workingHoursPerMonth) {
+    public double calculateWage(EmployeeWageCalculation[] array,int index) {
         double wage;
         int hoursPerDay = 0;
         String str = "";
@@ -35,9 +35,9 @@ public class EmployeeWageCalculation {
         Random rand = new Random();
         int employeeType;
         Map<String,Integer> map = new HashMap<>();
-        System.out.println("Calculating Wages for a month of "+this.companyName+"............");
-        for(int i=1;i<=numOfWorkingDays;i++) {
-            if(TotalHours <= workingHoursPerMonth) {
+        System.out.println("Calculating Wages for a month of "+array[index].companyName+"............");
+        for(int i=1;i<=array[index].numOfWorkingDays;i++) {
+            if(TotalHours <= array[index].workingHoursPerMonth) {
                 employeeType = 1 + rand.nextInt(2);
                 switch (employeeType) {
                     case 1:
@@ -55,7 +55,7 @@ public class EmployeeWageCalculation {
                         map.put(str,partTimeWorkingHours);
                         break;
                 }
-                wage = (hoursPerDay) * wagePerHour;
+                wage = (hoursPerDay) * array[index].wagePerHour;
                 TotalSalary += wage;
             } else {
                 break;
@@ -78,30 +78,30 @@ public class EmployeeWageCalculation {
 
     public static void main(String[] args){
         System.out.println("**********************************Welcome to Employee Computation program**********************************\n");
-        List<EmployeeWageCalculation> list = new ArrayList<>();
 
+        EmployeeWageCalculation[] array = new EmployeeWageCalculation[3];
         EmployeeWageCalculation philips = new EmployeeWageCalculation("Philips",22,247.43,176);
         EmployeeWageCalculation jio = new EmployeeWageCalculation("Jio",20,198.54,165);
         EmployeeWageCalculation cognizant = new EmployeeWageCalculation("Cognizant",15,160.78,160);
 
-        list.add(philips);
-        list.add(jio);
-        list.add(cognizant);
+        array[0] = philips;
+        array[1] = jio;
+        array[2] = cognizant;
 
         //Employee Attendance
         checkAttendance();
 
         //Given Details
         System.out.println("Given details of Companies...................");
-        for(EmployeeWageCalculation details:list){
+        for(EmployeeWageCalculation details:array){
             System.out.println("***************************************************************");
             System.out.println(details);
         }
         System.out.println("***************************************************************");
 
         //Employee wage calculation
-        System.out.println("Total Salary = "+philips.calculateWage(philips.companyName,philips.numOfWorkingDays,philips.wagePerHour,philips.workingHoursPerMonth)+"\n");
-        System.out.println("Total Salary = "+jio.calculateWage(jio.companyName,jio.numOfWorkingDays,jio.wagePerHour,jio.workingHoursPerMonth)+"\n");
-        System.out.println("Total salary = "+cognizant.calculateWage(cognizant.companyName,cognizant.numOfWorkingDays,cognizant.wagePerHour,cognizant.workingHoursPerMonth)+"\n");
+        System.out.println("Total Salary = "+philips.calculateWage(array,0)+"\n");
+        System.out.println("Total Salary = "+jio.calculateWage(array,1)+"\n");
+        System.out.println("Total salary = "+cognizant.calculateWage(array,2)+"\n");
     }
 }
