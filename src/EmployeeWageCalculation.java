@@ -1,6 +1,10 @@
 import java.util.*;
 
-class EmpWageBuilder {
+interface EmployeeWageInterface {
+    double calculateWage(EmpWageBuilder[] array,int index);
+}
+
+class EmpWageBuilder implements EmployeeWageInterface {
     public String companyName;
     public int numOfWorkingDays;
     public double wagePerHour;
@@ -59,8 +63,8 @@ class EmpWageBuilder {
         System.out.println(companyName+" Total Working hours = "+TotalHours);
         return TotalSalary;
     }
-
 }
+
 public class EmployeeWageCalculation extends EmpWageBuilder{
     EmployeeWageCalculation(String companyName, int numOfWorkingDays, double wagePerHour, int workingHoursPerMonth) {
         super(companyName, numOfWorkingDays, wagePerHour, workingHoursPerMonth);
