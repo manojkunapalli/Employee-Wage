@@ -1,30 +1,19 @@
 import java.util.*;
 
-public class EmployeeWageCalculation {
+class EmpWageBuilder {
     public String companyName;
     public int numOfWorkingDays;
     public double wagePerHour;
     public int workingHoursPerMonth;
 
-    EmployeeWageCalculation(String companyName,int numOfWorkingDays,double wagePerHour,int workingHoursPerMonth) {
+    EmpWageBuilder(String companyName,int numOfWorkingDays,double wagePerHour,int workingHoursPerMonth) {
         this.companyName = companyName;
         this.numOfWorkingDays = numOfWorkingDays;
         this.wagePerHour = wagePerHour;
         this.workingHoursPerMonth = workingHoursPerMonth;
     }
 
-    public static void checkAttendance() {
-        System.out.println("*****Attendance Check*****");
-        Random rand = new Random();
-        int presentOrAbsent = 1 + rand.nextInt(2);
-        if(presentOrAbsent == 1) {
-            System.out.println("Employee is Present");
-        } else {
-            System.out.println("Employee is Absent");
-        }
-    }
-
-    public double calculateWage(EmployeeWageCalculation[] array,int index) {
+    public double calculateWage(EmpWageBuilder[] array,int index) {
         double wage;
         int hoursPerDay = 0;
         String str = "";
@@ -71,6 +60,23 @@ public class EmployeeWageCalculation {
         return TotalSalary;
     }
 
+}
+public class EmployeeWageCalculation extends EmpWageBuilder{
+    EmployeeWageCalculation(String companyName, int numOfWorkingDays, double wagePerHour, int workingHoursPerMonth) {
+        super(companyName, numOfWorkingDays, wagePerHour, workingHoursPerMonth);
+    }
+
+    public static void checkAttendance() {
+        System.out.println("*****Attendance Check*****");
+        Random rand = new Random();
+        int presentOrAbsent = 1 + rand.nextInt(2);
+        if(presentOrAbsent == 1) {
+            System.out.println("Employee is Present");
+        } else {
+            System.out.println("Employee is Absent");
+        }
+    }
+
     @Override
     public String toString() {
         return "Company name => "+companyName+"\nnumber of working days => "+numOfWorkingDays+"\nWage per Hour => "+wagePerHour+"\nWorking Hours Per Month => "+workingHoursPerMonth;
@@ -80,6 +86,7 @@ public class EmployeeWageCalculation {
         System.out.println("**********************************Welcome to Employee Computation program**********************************\n");
 
         EmployeeWageCalculation[] array = new EmployeeWageCalculation[3];
+
         EmployeeWageCalculation philips = new EmployeeWageCalculation("Philips",22,247.43,176);
         EmployeeWageCalculation jio = new EmployeeWageCalculation("Jio",20,198.54,165);
         EmployeeWageCalculation cognizant = new EmployeeWageCalculation("Cognizant",15,160.78,160);
