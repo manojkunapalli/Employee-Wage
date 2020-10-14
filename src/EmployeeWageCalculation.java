@@ -1,7 +1,7 @@
 import java.util.*;
 
 interface EmployeeWageInterface {
-    double calculateWage(EmpWageBuilder[] array,int index);
+    double calculateWage(List<EmpWageBuilder> arraylist,int index);
 }
 
 class EmpWageBuilder implements EmployeeWageInterface {
@@ -17,7 +17,7 @@ class EmpWageBuilder implements EmployeeWageInterface {
         this.workingHoursPerMonth = workingHoursPerMonth;
     }
 
-    public double calculateWage(EmpWageBuilder[] array,int index) {
+    public double calculateWage(List<EmpWageBuilder> arraylist,int index) {
         double wage;
         int hoursPerDay = 0;
         String str = "";
@@ -28,9 +28,9 @@ class EmpWageBuilder implements EmployeeWageInterface {
         Random rand = new Random();
         int employeeType;
         Map<String,Integer> map = new HashMap<>();
-        System.out.println("Calculating Wages for a month of "+array[index].companyName+"............");
-        for(int i=1;i<=array[index].numOfWorkingDays;i++) {
-            if(TotalHours <= array[index].workingHoursPerMonth) {
+        System.out.println("Calculating Wages for a month of "+arraylist.get(index).companyName+"............");
+        for(int i=1;i<=arraylist.get(index).numOfWorkingDays;i++) {
+            if(TotalHours <= arraylist.get(index).workingHoursPerMonth) {
                 employeeType = 1 + rand.nextInt(2);
                 switch (employeeType) {
                     case 1:
@@ -48,7 +48,7 @@ class EmpWageBuilder implements EmployeeWageInterface {
                         map.put(str,partTimeWorkingHours);
                         break;
                 }
-                wage = (hoursPerDay) * array[index].wagePerHour;
+                wage = (hoursPerDay) * arraylist.get(index).wagePerHour;
                 TotalSalary += wage;
             } else {
                 break;
@@ -89,30 +89,30 @@ public class EmployeeWageCalculation extends EmpWageBuilder{
     public static void main(String[] args){
         System.out.println("**********************************Welcome to Employee Computation program**********************************\n");
 
-        EmployeeWageCalculation[] array = new EmployeeWageCalculation[3];
+        List<EmpWageBuilder> arraylist = new ArrayList<>();
 
         EmployeeWageCalculation philips = new EmployeeWageCalculation("Philips",22,247.43,176);
         EmployeeWageCalculation jio = new EmployeeWageCalculation("Jio",20,198.54,165);
         EmployeeWageCalculation cognizant = new EmployeeWageCalculation("Cognizant",15,160.78,160);
 
-        array[0] = philips;
-        array[1] = jio;
-        array[2] = cognizant;
+        arraylist.add(philips);
+        arraylist.add(jio);
+        arraylist.add(cognizant);
 
         //Employee Attendance
         checkAttendance();
 
         //Given Details
         System.out.println("Given details of Companies...................");
-        for(EmployeeWageCalculation details:array){
+        for(EmpWageBuilder details:arraylist){
             System.out.println("***************************************************************");
             System.out.println(details);
         }
         System.out.println("***************************************************************");
 
         //Employee wage calculation
-        System.out.println("Total Salary = "+philips.calculateWage(array,0)+"\n");
-        System.out.println("Total Salary = "+jio.calculateWage(array,1)+"\n");
-        System.out.println("Total salary = "+cognizant.calculateWage(array,2)+"\n");
+        System.out.println("Total Salary = "+philips.calculateWage(arraylist,0)+"\n");
+        System.out.println("Total Salary = "+jio.calculateWage(arraylist,1)+"\n");
+        System.out.println("Total salary = "+cognizant.calculateWage(arraylist,2)+"\n");
     }
 }
